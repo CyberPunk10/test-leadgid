@@ -93,6 +93,7 @@ export default {
   max-width: 375px
   padding: 1rem
   background-color: #fff
+  margin: .5rem
 
 .card-form
   &__close-btn
