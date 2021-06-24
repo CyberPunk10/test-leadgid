@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <div class="wrap-card-form">
-      <div class="card-form__close-btn"></div>
+    <TheModalWindow ref="modal">
+      <div
+        class="card-form__close-btn"
+        @click="closeModal"
+      ></div>
       <div class="card-form__sign-btn">
         Sign Up
       </div>
@@ -28,7 +31,7 @@
         <AppButton class="offset">Log in</AppButton>
       </form>
       <p class="text-primary">Forgot your password?</p>
-    </div>
+    </TheModalWindow>
   </div>
 </template>
 
@@ -45,6 +48,7 @@ export default {
         login: '',
         password: '',
       },
+      show: true
     }
   },
 
@@ -55,7 +59,26 @@ export default {
     }
   },
 
+  mounted() {
+    this.initClientOnlyComp()
+  },
+
   methods: {
+    initClientOnlyComp(count = 10) {
+      this.$nextTick(() => {
+        if (this.$refs.modal) {
+          this.$refs.modal.show = true
+        } else if (count > 0) {
+          this.initClientOnlyComp(count - 1)
+        }
+      })
+    },
+    showModal() {
+      this.$refs.modal.show = true
+    },
+    closeModal() {
+      this.$refs.modal.show = false
+    },
     onSubmit() {
       if (this.$v.formLogin.$invalid) {
         this.$v.$touch()
@@ -86,14 +109,6 @@ export default {
   align-items: center
   text-align: center
   background-color: #e5e5e5
-
-.wrap-card-form
-  position: relative
-  width: 100%
-  max-width: 375px
-  padding: 1rem
-  background-color: #fff
-  margin: .5rem
 
 .card-form
   &__close-btn
