@@ -30,7 +30,7 @@
 
         <AppButton class="offset">Log in</AppButton>
       </form>
-      <p class="text-primary">Forgot your password?</p>
+      <p class="text-primary text-btn">Forgot your password?</p>
     </TheModalWindow>
     <p
       v-if="!validationResult"
