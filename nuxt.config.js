@@ -41,9 +41,7 @@ export default {
   ],
 
   styleResources: {
-    sass: [
-      '~assets/sass/vars/_index.sass',
-    ],
+    sass: ['~/assets/sass/vars/_index.sass'],
     // scss: [],
     // less: [],
     // stylus: [],
