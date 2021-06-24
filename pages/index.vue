@@ -1,73 +1,144 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        Leadgid
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+    <div class="wrap-card-form">
+      <div class="card-form__close-btn"></div>
+      <div class="card-form__sign-btn">
+        Sign Up
       </div>
+      <h1 class="title">Log In</h1>
+      <form @submit.prevent="onSubmit">
+        <AppInput
+          v-model.trim="formLogin.login"
+          :class="{invalid: $v.formLogin.login.$error}"
+          :inputData="{ title: 'Name' }"
+          :v="$v.formLogin.login"
+          autofocus
+          placeholder="Name"
+        />
+
+        <AppInput
+          v-model.trim="formLogin.password"
+          :class="{invalid: $v.formLogin.password.$error}"
+          :inputData="{ title: 'Password' }"
+          :v="$v.formLogin.password"
+          type="password"
+          placeholder="Password"
+        />
+
+        <AppButton class="offset">Log in</AppButton>
+      </form>
+      <p class="text-primary">Forgot your password?</p>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import { validationMixin } from 'vuelidate'
+import { required, minLength } from 'vuelidate/lib/validators'
+
+export default {
+  mixins: [validationMixin],
+
+  data() {
+    return {
+      formLogin: {
+        login: '',
+        password: '',
+      },
+    }
+  },
+
+  validations: {
+    formLogin: {
+      login: { required, minLength: minLength(4) },
+      password: { required, minLength: minLength(8) }
+    }
+  },
+
+  methods: {
+    onSubmit() {
+      if (this.$v.formLogin.$invalid) {
+        this.$v.$touch()
+        return
+      }
+      if (!this.$v.formLogin.$error) {
+        console.log('Валидация прошла успешно')
+
+        const formData = {
+          login: this.formLogin.login,
+          password: this.formLogin.password
+        }
+
+        // logic push data
+      }
+    },
+  }
+
+}
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style lang="sass">
+.container
+  margin: 0 auto
+  min-height: 100vh
+  display: flex
+  justify-content: center
+  align-items: center
+  text-align: center
+  background-color: #e5e5e5
 
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+.wrap-card-form
+  position: relative
+  width: 100%
+  max-width: 375px
+  padding: 1rem
+  background-color: #fff
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+.card-form
+  &__close-btn
+    $gray-03: #BDBDBD
+    position: absolute
+    top: 0
+    left: 0
+    width: 4rem
+    height: 4rem
+    cursor: pointer
+    &:before,
+    &:after
+      content: ''
+      width: 16px
+      height: 2px
+      background: $gray-03
+      border-radius: 20px
+      position: absolute
+      left: 19px
+      top: 36px
+    &:before
+      transform: rotate(45deg)
+    &:after
+      transform: rotate(-45deg)
 
-.links {
-  padding-top: 15px;
-}
+  &__sign-btn
+    $green-primary: #5DB075
+    position: absolute
+    top: 1px
+    right: 15px
+    padding-top: 1.8rem
+    height: 4.5rem
+    cursor: pointer
+    color: $green-primary
+
+.title
+  font-size: 30px
+  line-height: 2.9rem
+  padding-left: 5px
+  margin-bottom: 1.7rem
+
+.text-primary
+  $green-primary: #5DB075
+  color: $green-primary
+
+.button.offset
+  margin-top: 1.5rem
+  margin-bottom: 1rem
 </style>
