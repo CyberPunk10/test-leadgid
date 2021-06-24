@@ -125,7 +125,6 @@ export default {
 
 .card-form
   &__close-btn
-    $gray-03: #BDBDBD
     position: absolute
     top: 0
     left: 0
@@ -146,9 +145,12 @@ export default {
       transform: rotate(45deg)
     &:after
       transform: rotate(-45deg)
+    &:hover
+      &:before,
+      &:after
+        background-color: darken($gray-03, 5%)
 
   &__sign-btn
-    $green-primary: #5DB075
     position: absolute
     top: 1px
     right: 15px
@@ -156,6 +158,9 @@ export default {
     height: 4.5rem
     cursor: pointer
     color: $green-primary
+    transition: $transitionDefaultHover
+    &:hover
+      color: darken($green-primary, 5%)
 
 .title
   font-size: 30px
@@ -164,7 +169,6 @@ export default {
   margin-bottom: 1.7rem
 
 .text-primary
-  $green-primary: #5DB075
   color: $green-primary
 .text-btn
   cursor: pointer

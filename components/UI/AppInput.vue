@@ -79,10 +79,6 @@ export default {
 
 <style lang="sass">
 .text-field
-  $gray-01: #F6F6F6
-  $gray-03: #BDBDBD
-  $red: #ff6163
-
   position: relative
   max-width: 343px
   margin-bottom: 1rem
@@ -100,7 +96,7 @@ export default {
     color: $gray-03
     outline: none
     box-sizing: border-box
-    transition: 0.2s ease all
+    transition: $transitionDefaultHover
     &::-webkit-input-placeholder
       color: $gray-03
     &::-moz-placeholder
@@ -118,6 +114,6 @@ export default {
       border-color: $red
 
   &__error-msg
-    color: $red
     font-size: 12px
+    color: $red
 </style>

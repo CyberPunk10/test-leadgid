@@ -8,7 +8,6 @@
 
 <style lang="sass">
 .button
-  $green-primary: #5DB075
   cursor: pointer
   user-select: none
   width: 100%
