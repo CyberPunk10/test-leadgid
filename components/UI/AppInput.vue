@@ -93,7 +93,7 @@ export default {
     border: 1px solid #E8E8E8
     border-radius: 8px
     letter-spacing: .3px
-    color: $gray-03
+    color: #444
     outline: none
     box-sizing: border-box
     transition: $transitionDefaultHover

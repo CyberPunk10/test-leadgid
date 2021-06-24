@@ -5,10 +5,13 @@
         class="card-form__close-btn"
         @click="closeModal"
       ></div>
-      <div class="card-form__sign-btn">
-        Sign Up
+      <div
+        class="card-form__sign-btn"
+        @click="titleFormLogin = !titleFormLogin"
+      >
+        {{ titleFormLogin ? 'Sign Up' : 'Log In' }}
       </div>
-      <h1 class="title">Log In</h1>
+      <h1 class="title">{{ titleFormLogin ? 'Log In' : 'Sign Up' }}</h1>
       <form @submit.prevent="onSubmit">
         <AppInput
           v-model.trim="formLogin.login"
@@ -28,15 +31,18 @@
           placeholder="Password"
         />
 
-        <AppButton class="offset">Log in</AppButton>
+        <AppButton class="offset">{{ titleFormLogin ? 'Log In' : 'Sign Up' }}</AppButton>
       </form>
-      <p class="text-primary text-btn">Forgot your password?</p>
+      <p
+        v-if="titleFormLogin"
+        class="text-primary text-btn"
+      >Forgot your password?</p>
     </TheModalWindow>
     <p
       v-if="!validationResult"
       class="text-primary text-btn"
       @click="showModal"
-    >Log In</p>
+    >{{ titleFormLogin ? 'Log In' : 'Sign Up' }}</p>
     <p
       v-else
       class="text-primary text-btn"
@@ -54,6 +60,7 @@ export default {
 
   data() {
     return {
+      titleFormLogin: true,
       formLogin: {
         login: '',
         password: '',
