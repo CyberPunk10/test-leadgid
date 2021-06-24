@@ -60,7 +60,7 @@ export default {
         return `${this.inputData.title} должен быть не менее ${this.v.$params.minLength.min} символов, сейчас: ${this.value.length}`
       }
       if (!this.v.maxLength) {
-        return `${this.inputData.title} должен быть не более ${this.v.$params.minLength.min} символов, сейчас: ${this.value.length}`
+        return `${this.inputData.title} должен быть не более ${this.v.$params.maxLength.max} символов, сейчас: ${this.value.length}`
       }
       return `Введите корректный ${this.inputData.title}`
     }
