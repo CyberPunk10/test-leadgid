@@ -45,7 +45,7 @@ export default {
   top: 0
   left: 0
   min-height: 100%
-  width: calc(100% - 1rem)
+  width: 100%
 
   .modal
     position: absolute
@@ -56,5 +56,8 @@ export default {
     max-width: 375px
     padding: 1rem
     background-color: #fff
-    margin: .5rem
+    @media screen and (max-width: $phoneWidth) // < 480px
+      top: 0
+      height: 100%
+      transform: translate(-50%, 0)
 </style>
