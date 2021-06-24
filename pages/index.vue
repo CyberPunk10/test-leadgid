@@ -12,7 +12,7 @@
         {{ titleFormLogin ? 'Sign Up' : 'Log In' }}
       </div>
       <h1 class="title">{{ titleFormLogin ? 'Log In' : 'Sign Up' }}</h1>
-      <form @submit.prevent="onSubmit">
+      <form @submit.prevent="checkForm">
         <AppInput
           v-model.trim="formLogin.login"
           :class="{invalid: $v.formLogin.login.$error}"
@@ -53,7 +53,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [validationMixin],
@@ -71,8 +71,8 @@ export default {
 
   validations: {
     formLogin: {
-      login: { required, minLength: minLength(4) },
-      password: { required, minLength: minLength(8) }
+      login: { required, minLength: minLength(3), maxLength: maxLength(15) },
+      password: { required, minLength: minLength(6), maxLength: maxLength(20) }
     }
   },
 
@@ -96,25 +96,30 @@ export default {
     closeModal() {
       this.$refs.modal.show = false
     },
-    onSubmit() {
+    checkForm() {
       if (this.$v.formLogin.$invalid) {
         this.$v.$touch()
         return
       }
       if (!this.$v.formLogin.$error) {
-        console.log('Валидация прошла успешно')
-
         const formData = {
           login: this.formLogin.login,
           password: this.formLogin.password
         }
 
-        // logic push data
+        this.api()
 
         this.validationResult = true
         this.closeModal()
       }
     },
+
+    api() {
+      return new Promise((resolve) => {
+        setTimeout(resolve('success'), 3000)
+      })
+    },
+
   }
 
 }

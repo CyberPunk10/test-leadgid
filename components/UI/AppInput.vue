@@ -13,7 +13,8 @@
     >
       {{
         (v.$dirty && !v.required) ? messageEmpty
-        : ((v.$dirty && !v.minLength) ? messageIncorrect : '')
+        : ((v.$dirty && !v.minLength) ? messageIncorrect
+        : ((v.$dirty && !v.maxLength) ? messageIncorrect : ''))
       }}
     </span>
   </div>
@@ -55,12 +56,11 @@ export default {
     },
     messageIncorrect() {
       // если есть валидация по длине, то выводим сколько символов необходимо
-      if ('minLength' in this.v) {
+      if (!this.v.minLength) {
         return `${this.inputData.title} должен быть не менее ${this.v.$params.minLength.min} символов, сейчас: ${this.value.length}`
       }
-      // если есть валидация по email, то выводим требования к написанию почты
-      if ('email' in this.v) {
-        return `${this.inputData.title} должен содержать символ "@". Например myemail@ya.ru`
+      if (!this.v.maxLength) {
+        return `${this.inputData.title} должен быть не более ${this.v.$params.minLength.min} символов, сейчас: ${this.value.length}`
       }
       return `Введите корректный ${this.inputData.title}`
     }
