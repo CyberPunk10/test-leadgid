@@ -53,7 +53,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength, maxLength } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, helpers } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [validationMixin],
@@ -71,8 +71,17 @@ export default {
 
   validations: {
     formLogin: {
-      login: { required, minLength: minLength(3), maxLength: maxLength(15) },
-      password: { required, minLength: minLength(6), maxLength: maxLength(20) }
+      login: {
+        required,
+        minLength: minLength(3),
+        maxLength: maxLength(15),
+        helpers: helpers.regex('alpha', /^[a-zA-Zа-яёА-ЯЁ]*$/),
+      },
+      password: {
+        required,
+        minLength: minLength(6),
+        maxLength: maxLength(20)
+      }
     }
   },
 

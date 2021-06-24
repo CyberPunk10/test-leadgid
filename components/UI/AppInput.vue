@@ -14,7 +14,8 @@
       {{
         (v.$dirty && !v.required) ? messageEmpty
         : ((v.$dirty && !v.minLength) ? messageIncorrect
-        : ((v.$dirty && !v.maxLength) ? messageIncorrect : ''))
+        : ((v.$dirty && !v.maxLength) ? messageIncorrect
+        : ((v.$dirty && !v.helpers) ? messageIncorrect : '')))
       }}
     </span>
   </div>
@@ -55,12 +56,17 @@ export default {
       }
     },
     messageIncorrect() {
+      console.log(this.v?.helpers)
+      console.log(this.v)
       // если есть валидация по длине, то выводим сколько символов необходимо
       if (!this.v.minLength) {
         return `${this.inputData.title} должен быть не менее ${this.v.$params.minLength.min} символов, сейчас: ${this.value.length}`
       }
       if (!this.v.maxLength) {
         return `${this.inputData.title} должен быть не более ${this.v.$params.maxLength.max} символов, сейчас: ${this.value.length}`
+      }
+      if (!this.v.helpers) {
+        return 'Используйте кириллицу или латиницу'
       }
       return `Введите корректный ${this.inputData.title}`
     }
