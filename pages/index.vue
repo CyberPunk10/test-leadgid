@@ -32,6 +32,16 @@
       </form>
       <p class="text-primary">Forgot your password?</p>
     </TheModalWindow>
+    <p
+      v-if="!validationResult"
+      class="text-primary text-btn"
+      @click="showModal"
+    >Log In</p>
+    <p
+      v-else
+      class="text-primary text-btn"
+      @click="validationResult = !validationResult"
+    >Валидация прошла успешно</p>
   </div>
 </template>
 
@@ -48,7 +58,7 @@ export default {
         login: '',
         password: '',
       },
-      show: true
+      validationResult: ''
     }
   },
 
@@ -93,6 +103,9 @@ export default {
         }
 
         // logic push data
+
+        this.validationResult = true
+        this.closeModal()
       }
     },
   }
@@ -153,6 +166,8 @@ export default {
 .text-primary
   $green-primary: #5DB075
   color: $green-primary
+.text-btn
+  cursor: pointer
 
 .button.offset
   margin-top: 1.5rem
